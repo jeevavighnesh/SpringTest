@@ -1,0 +1,48 @@
+group 'com.aynna'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compileOnly "org.projectlombok:lombok:1.16.8"
+
+    compile group: 'org.projectlombok', name: 'lombok-maven', version: '1.16.18.1', ext: 'pom'
+
+    compile 'mysql:mysql-connector-java:6.0.6'
+
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final'
+
+    compile 'org.hibernate:hibernate-core:5.2.2.Final'
+
+    compile 'org.hibernate:hibernate:3.2.6.ga'
+
+    compile 'org.springframework:spring-core:4.3.10.RELEASE'
+    compile 'org.springframework:spring-web:4.3.10.RELEASE'
+    compile 'org.springframework:spring-orm:4.3.10.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.3.10.RELEASE'
+    compile 'org.springframework:spring-aop:4.3.10.RELEASE'
+
+    compile 'javax.inject:javax.inject:1'
+    compile 'javax.faces:javax.faces-api:2.2'
+    compile 'com.sun.faces:jsf-api:2.1.13'
+    compile 'com.sun.faces:jsf-impl:2.1.13'
+    compile 'javax.servlet:jstl:1.2'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'javax.servlet.jsp:jsp-api:2.1'
+}
+
+war {
+    archiveName = "springTest"
+}

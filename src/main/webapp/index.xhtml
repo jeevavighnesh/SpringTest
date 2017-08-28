@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+<h:body>
+    <h:form>
+        <h:outputLabel value="Name: " />
+        <h:inputText value="#{user.name}" title="Name" />
+        <h:commandButton value="Submit" action="#{userService.addUser(user)}" />
+    </h:form>
+
+    <br/>
+    <br/>
+
+    <c:if test="${!empty userService.listUsers()}">
+        <table class="tg">
+            <tr>
+                <th width="80">User ID</th>
+                <th width="120">User Name</th>
+                <th width="120">Actions</th>
+            </tr>
+                <ui:repeat value="${userService.listUsers()}" var="u">
+                    <h:form id="form_#{u.id}">
+                        <tr>
+                            <td align="center">#{u.id}</td>
+                            <td id="ele" align="center" style="display: block;">#{u.name}</td>
+                            <td id="edit" align="center" style="display: none;"><h:inputText value="${u.name}" /></td>
+                            <td>
+                                <h:commandButton action="#{userService.removeUser(u)}" value="Remove" />
+                                <h:button id="editBtn" onclick="toggle(${u.id}); return false;" style="display: block;" value="Edit" />
+                                <h:button id="saveBtn" onclick="toggle(${u.id}); return false;" style="display: none;" value="Save" />
+                                <h:button id="cancelBtn" onclick="toggle(${u.id}); return false;" style="display: none;" value="Cancel" />
+                            </td>
+                        </tr>
+                    </h:form>
+                </ui:repeat>
+        </table>
+    </c:if>
+
+    <script type="text/javascript">
+        function toggle(id) {
+            console.log("toggle", id + "Called");
+            var element = document.getElementById("form_"+id+":ele");
+            var element_edit = document.getElementById("form_"+id+":edit");
+            var element_editBtn = document.getElementById("form_"+id+":editBtn");
+            var element_saveBtn = document.getElementById("form_"+id+":saveBtn");
+            var element_cancelBtn = document.getElementById("form_"+id+":cancelBtn");
+            if(element.style.display === 'block') {
+                element.style.display = 'none';
+                element_editBtn.style.display = "none";
+                element_edit.style.display = 'block';
+                element_saveBtn.style.display = 'block';
+                element_cancelBtn.style.display = 'block';
+            } else {
+                element.style.display = 'block';
+                element_editBtn.style.display = "block";
+                element_edit.style.display = 'none';
+                element_saveBtn.style.display = 'none';
+                element_cancelBtn.style.display = 'none';
+            }
+        }
+    </script>
+
+</h:body>
+
+</html>
